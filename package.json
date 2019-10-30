@@ -5,7 +5,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["React", "Redux", "AI", "Minimax"],
+  "keywords": [
+    "React",
+    "Redux",
+    "AI",
+    "Minimax"
+  ],
   "author": "Steve Daniels",
   "license": "MIT",
   "description": ""
