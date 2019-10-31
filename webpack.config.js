@@ -37,7 +37,8 @@ module.exports = {
 							'@babel/preset-env',
 							{
 								modules: false
-							}
+							},
+							'@babel/react'
 						]
 					]
 				}
