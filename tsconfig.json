@@ -5,7 +5,7 @@
         //
         "sourceMap": true,
         // Target latest version of ECMAScript.
-        "target": "es5",
+        "target": "ESNext",
         // Search under node_modules for non-relative imports.
         "moduleResolution": "node",
         // Process & infer types from .js files.
@@ -19,9 +19,30 @@
         // Import non-ES modules as default imports.
         "esModuleInterop": true,
         //
-        "jsx" : "react"
-    }, 
+        "jsx": "react",
+        //
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "rootDir": "src",
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+    },
+    "exclude": [
+        "node_modules",
+        "build",
+        "scripts",
+        "acceptance-tests",
+        "webpack",
+        "jest",
+        "src/setupTests.ts"
+    ],
+    "types": [
+        "typePatches"
+    ],
     "include": [
-		"src"
-	]
+        "src"
+    ]
 }
