@@ -1,20 +1,13 @@
-const path = require('path');
-const webpack = require('webpack');
+// const path = require('path');
+// const webpack = require('webpack');
 
-/*
- * SplitChunksPlugin is enabled by default and replaced
- * deprecated CommonsChunkPlugin. It automatically identifies modules which
- * should be splitted of chunk by heuristics using module duplication count and
- * module category (i. e. node_modules). And splits the chunks…
- *
- * It is safe to remove "splitChunks" from the generated configuration
- * and was added as an educational example.
- *
- * https://webpack.js.org/plugins/split-chunks-plugin/
- *
- */
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import path from 'path';
+import webpack  from 'webpack'
+
+console.log('Loading webpack config..')
+
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 module.exports = {
 	mode: 'development',
@@ -26,8 +19,8 @@ module.exports = {
 	},
 
 	plugins: [new webpack.ProgressPlugin(), new HtmlWebpackPlugin({
-		template: path.join(__dirname, 'src', 'index.html')
-	})],
+			template: path.join(__dirname, 'src', 'index.html')
+		})],
 
 	module: {
 		rules: [
