@@ -3,29 +3,37 @@
 
 
 import path from 'path';
-import webpack  from 'webpack'
+import webpack from 'webpack'
+import { CleanWebpackPlugin } from 'clean-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+
 
 console.log('Loading webpack config..')
 
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-
 module.exports = {
 	mode: 'development',
-	entry: './src/index.js',
+	entry: './src/index.tsx',
 
 	output: {
-		filename: '[name].[chunkhash].js',
+		filename: '[name].[hash].js',
 		path: path.resolve(__dirname, 'dist')
 	},
 
-	plugins: [new webpack.ProgressPlugin(), new HtmlWebpackPlugin({
-			template: path.join(__dirname, 'src', 'index.html')
+	resolve: {
+		extensions: ['.ts', '.tsx', '.js', '.jsx'],
+	  },
+
+	plugins: [new webpack.ProgressPlugin(),
+	
+    	new CleanWebpackPlugin(),
+		new HtmlWebpackPlugin({
+			template: './src/index.html',
 		})],
 
 	module: {
 		rules: [
 			{
-				test: /.(js|jsx)$/,
+				test: /.(ts|js)x?$/,
 				include: [path.resolve(__dirname, 'src')],
 				loader: 'babel-loader',
 
@@ -45,7 +53,7 @@ module.exports = {
 			},
 			{
 				// Compile React ES6 and above into ES5 syntax
-				test: /\.(js|jsx)$/,
+				test: /\.(js|jsx|ts)$/,
 				exclude: /node_modules/,
 				use: ['babel-loader']
 			},
@@ -80,6 +88,7 @@ module.exports = {
 	},
 
 	devServer: {
-		open: true
+		open: true,
+		hot: true,
 	}
 }
