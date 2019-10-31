@@ -8,27 +8,20 @@ class Store {
     @observable squares = []
     @observable isJumpAvailable = false
     @observable isOpponentAi
-    
-    // winner = null
-    // currentPlayer = "black"
-    // currentSquare = 1
-    // squares = []
-    // isJumpAvailable = false
-    // isOpponentAi = false
 
     constructor() {
         
     }
 
 	@computed get toString() {
-        return 2 * this.currentSquare
+        // TODO: return string reperesentation of store
     }
 
-    @action.bound get genSquares(){
+    @action.bound genSquares(){
         // TODO: Implement square generation
     }
 }
 
-const gameStore = new Store()
+const gameState = new Store()
 
-export default gameStore
+export default gameState
