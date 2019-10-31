@@ -16,15 +16,6 @@ const webpack = require('webpack');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-/*
- * We've enabled HtmlWebpackPlugin for you! This generates a html
- * page for you when you compile webpack, which will make you start
- * developing and prototyping faster.
- *
- * https://github.com/jantimon/html-webpack-plugin
- *
- */
-
 module.exports = {
 	mode: 'development',
 	entry: './src/index.js',
@@ -34,7 +25,9 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist')
 	},
 
-	plugins: [new webpack.ProgressPlugin(), new HtmlWebpackPlugin()],
+	plugins: [new webpack.ProgressPlugin(), new HtmlWebpackPlugin({
+		template: path.join(__dirname, 'src', 'index.html')
+	})],
 
 	module: {
 		rules: [
@@ -55,6 +48,23 @@ module.exports = {
 						]
 					]
 				}
+			},
+			{
+				// Compile React ES6 and above into ES5 syntax
+				test: /\.(js|jsx)$/,
+				exclude: /node_modules/,
+				use: ['babel-loader']
+			},
+			{
+				test: /\.(css)$/,
+				use: [
+					"style-loader", // style nodes via JS strings
+					"css-loader", //  CSS -> CommonJS
+				]
+			},
+			{
+				test: /\.(jpg|jpeg|png|gif|mp3|svg)$/,
+				loaders: ['file-loader']
 			}
 		]
 	},
@@ -78,4 +88,4 @@ module.exports = {
 	devServer: {
 		open: true
 	}
-};
+}
