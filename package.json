@@ -6,10 +6,12 @@
     "check-types": "./node_modules/.bin/tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel-node ./node_modules/webpack/bin/webpack",
-    "webpack:prod": "babel-node ./node_modules/webpack/bin/webpack --mode production",
-    "webpack:dev": "babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server --mode development",
+    "build:prod": "babel-node ./node_modules/webpack/bin/webpack --mode production",
+    "build:dev": "babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server --mode development",
     "start": "babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server --open",
-    "dev": "npm run webpack:dev"
+    "dev": "npm run dev:vscode",
+    "dev:vscode": "babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server --progress",
+    "dev:webpack": "babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server --open --mode development --hot --progress"
   },
   "keywords": [
     "React",
