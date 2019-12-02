@@ -40,7 +40,8 @@
         "src/setupTests.ts"
     ],
     "types": [
-        "typePatches"
+        "typePatches",
+        "node"
     ],
     "include": [
         "src"
