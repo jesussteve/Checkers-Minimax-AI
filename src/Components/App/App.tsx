@@ -1,28 +1,35 @@
-import React from "react";
-import "./App.css";
-// import Game from '../Game'
-import { observer } from "mobx-react";
-import { gameState, Store } from "../../Store";
+/**
+ * @file App React component
+ */
+import React, { FunctionComponent } from 'react'
+import { observer } from 'mobx-react'
+import Game from '../Game'
+import './App.css'
+import { Store } from '../../Store'
 
-const AppProps = {
+/**
+ * Props
+ */
+type AppProps = {
   gameState: Store
-};
+}
 
-const App: React.FunctionComponent<{
-  gameState: Store;
-}> = observer(props => {
-  return (
-    <div className="App-container">
-      <div className='container'>
-        <h1>Hello world!</h1>
-        <p>{gameState.currentPlayer}</p>
-        <button onClick={gameState.nextPlayer} type="button">
-          Change Player
+/**
+ * @constructor Observer React Function Component declaration
+ * @param {Store} gameState - Observable Mobx store for game state 
+ */
+const App: FunctionComponent<AppProps> = observer(({ 
+  // Prop Defaults
+  gameState
+}) =>
+  <div className='App-container'>
+    <Game gameState={gameState}>
+      <p>{gameState.currentPlayer}</p>
+      <button onClick={gameState.nextPlayer} type='button'>
+        Change Player
         </button>
-        <p>Hello</p>
-      </Game>
-    </div>
-  );
-});
+    </Game>
+  </div>
+)
 
-export default App;
+export default App
