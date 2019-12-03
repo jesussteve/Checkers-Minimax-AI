@@ -1,0 +1,27 @@
+.Checker {
+  position:absolute;
+  height:80%;
+  width:80%; 
+  top: 8%;
+  left: 8%;
+  border-radius: 50%;
+  font-size: 14px;
+  
+  
+}
+
+.Checker-white, .Checker-black {
+
+}
+
+.Checker-white {
+  background:rgb(240, 240, 240);
+  color: black;
+  border: 2px solid white;
+}
+
+.Checker-black {
+  background:black;
+  color: rgb(240, 240, 240);
+  border: 2px solid rgb(240, 240, 240);
+}
