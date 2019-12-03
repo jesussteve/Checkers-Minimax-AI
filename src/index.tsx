@@ -1,8 +1,16 @@
-import React from "react";
+/**
+ * @file Entry point to application
+ */
+import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './Components/App'
-import { gameState, Store } from "./Store";
+import { Store } from './Store'
 
-ReactDOM.render(<App gameState={gameState} />, document.getElementById("root"));
+// Init Mobx Store to handle application state
+const store = new Store()
 
-console.log("Hello World!")
+// Render App component on index.html root
+ReactDOM.render(<App gameState={store}/>, document.getElementById('root'))
+
+// Application loaded
+console.log('Hello World!')
