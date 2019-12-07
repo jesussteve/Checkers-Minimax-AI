@@ -22,7 +22,6 @@
   "author": "Steve Daniels",
   "license": "MIT",
   "description": "Checkers game with Minimax AI algorithm",
-  "type": "module",
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/node": "^7.6.3",
