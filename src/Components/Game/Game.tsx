@@ -47,6 +47,7 @@ export const Game: FunctionComponent<GameProps> = observer(({ gameState, childre
                                                 player={col.player}
                                                 isKing={false}
                                                 squareId={col.id}
+                                                currentRow={rowIndex}
                                             />
                                             : ''}
                                 </Square>

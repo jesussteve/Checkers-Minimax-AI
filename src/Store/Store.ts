@@ -7,27 +7,29 @@ import Squares, { Row, Column } from '../Models/Squares.Model'
 /**
  * Interface
  */
-interface StoreProps {
+    interface StoreProps {
     winner: string
     currentPlayer: string
     currentSquare: number
     squares: Squares
     isJumpAvailable: boolean
     isOpponentAi: boolean,
+    availableMoves: number[]
 }
 
 /**
- * Class Definition inmplementing Interface
+ * Class Definition implementing Interface
  */
 export class Store implements StoreProps {
     // Mobx observable Props
     @observable winner = ""
     @observable currentPlayer = 'black'
     @observable currentSquare = 1
+    @observable currentRow = 0
     @observable squares = new Squares()
     @observable isJumpAvailable = false
     @observable isOpponentAi = false
-
+    @observable availableMoves = []
     /**
      * Convert store to string
      */
@@ -45,10 +47,10 @@ export class Store implements StoreProps {
 
     /**
      * Bound Mobx Action available to observers
-     * Changes the current player  
+     * Changes the current player
      * @returns {void}
      */
-    @action.bound 
+    @action.bound
     nextPlayer(): void {
         // Swap player to opposite of current player
         this.currentPlayer = this.currentPlayer === 'black' ? 'white' : 'black'
@@ -58,9 +60,9 @@ export class Store implements StoreProps {
     /**
      * Bound Mobx Action available to observers
      * Generates squares for game board for given row / columns
-     * @returns {void} 
+     * @returns {void}
      */
-    @action.bound 
+    @action.bound
     genSquares(): void {
         // Current square id
         let id = 0
@@ -80,12 +82,12 @@ export class Store implements StoreProps {
                 } else if ((j % 2 === 0 && i % 2 !== 0) || (j % 2 !== 0 && i % 2 === 0)) {
                     // Increment current square id
                     id += 1
-                    // Determine if square should have white checker 
+                    // Determine if square should have white checker
                     if (id <= 12) {
                         // Add in Valid square with id and white player
                         row.cols.push(new Column(true, id, 'white', false))
                         console.log('BLACK square added (id: ' + id + ') with WHITE checker')
-                        // Determine if square should have black checker 
+                        // Determine if square should have black checker
                     } else if (id >= 21) {
                         // Add valid square with id and black checker
                         row.cols.push(new Column(true, id, 'black', false))
@@ -111,15 +113,17 @@ export class Store implements StoreProps {
         })
 
     }
+
     /**
      * Bound Mobx Action available to observers
      * OnClick event for checkers on the board
-     * @param {number} squareId - Current square of the checker 
+     * @param {number} squareId - Current square of the checker
+     * @param {number} rowId - Current row of the checker
      * @param {string} colour - Colour of the checker
      * @param {boolean} isKing - Checker king status
      */
     @action.bound
-    checkerOnClick(squareId: number, colour: string, isKing: boolean): void {
+    checkerOnClick(squareId: number, rowId:number, colour: string, isKing: boolean): void {
         const ai = this.isOpponentAi
         const currentPlayer = this.currentPlayer
 
@@ -128,10 +132,10 @@ export class Store implements StoreProps {
         // Determine if opponents checker and if opponent is human
         if (currentPlayer !== colour && !ai) {
             // Human opponent
-            this.calculateMoves(squareId, colour, isKing)
+            this.calculateMoves(squareId, rowId, colour, isKing)
         } else {
             // Current player
-            this.calculateMoves(squareId, colour, isKing)
+            this.calculateMoves(squareId, rowId, colour, isKing)
             // Determine if winner
         }
     }
@@ -139,14 +143,16 @@ export class Store implements StoreProps {
     /**
      * Bound Mobx Action available to observers
      * Calculates moves available for a given checker
-     * @param {number} squareId - Current square of the checker 
+     * @param {number} squareId - Current square of the checker
+     * @param {number} rowId - Current row of the checker
      * @param {string} colour - Colour of the checker
      * @param {boolean} isKing - Checker king status
      */
     @action.bound
-    calculateMoves(squareId: number, colour: string, isKing: boolean) : void {
-        // Mark checker as selected
+    calculateMoves(squareId: number, rowId: number, colour: string, isKing: boolean) : void {
+        // Mark checker & row as selected
         this.currentSquare = squareId
+        this.currentRow = rowId
         console.log('Calculating moves for square ' + squareId)
         // TODO: Calculate possible moves
         // If king
@@ -156,31 +162,44 @@ export class Store implements StoreProps {
         } else {
             // Determine colour
             if (colour === 'white') {
-                // Check not last row on board
-                // if(squareId < )
+                // Checker position not last row on board
+                if(squareId < 29) {
+                    // evaluate move for item in next array down (s[r][c] -> t[r+1][c])
+                    // If EVEN row AND NOT LAST item in array
+                    //if ()
+                        // evaluate move for item RHS adjacent to item above (s[r][c] -> t[r+1][c+1])
+                    // If ODD row AND NOT FIRST item in array
+                        // evaluate move for item RHS adjacent to item above (s[r][c] -> t[r+1][c+1])
+                    this.availableMoves = []
+                }
             }
         }
         // If not last row
-        // evaluate move for item in next array down (s[r][c] -> t[r+1][c]) 
-        // If EVEN row AND NOT LAST item in array
-        // evaluate move for item RHS adjacent to item above (s[r][c] -> t[r+1][c+1])
-        // If ODD row AND NOT FIRST item in array 
-        // evaluate move for item RHS adjacent to item above (s[r][c] -> t[r+1][c+1])
-        // If Last row
-        // King me
+            // evaluate move for item in next array down (s[r][c] -> t[r+1][c])
+            // If EVEN row AND NOT LAST item in array
+                // evaluate move for item RHS adjacent to item above (s[r][c] -> t[r+1][c+1])
+            // If ODD row AND NOT FIRST item in array
+                // evaluate move for item RHS adjacent to item above (s[r][c] -> t[r+1][c+1])
+            // If Last row
+            // King me
         // If black
-        // If not first row
+            // If not first row
         // evaluate move for item in next array up (s[r][c] -> t[r-1][c]) ( could use * -1 )
-        // If EVEN row AND NOT LAST item in array
+            // If EVEN row AND NOT LAST item in array
         // evaluate move for item RHS adjacent to item above (s[r][c] -> t[r-1][c-1])
-        // If ODD row AND NOT FIRST item in array 
-        // evaluate move for item RHS adjacent to item above (s[r][c] -> t[r-1][c-1])
+            // If ODD row AND NOT FIRST item in array
+                // evaluate move for item RHS adjacent to item above (s[r][c] -> t[r-1][c-1])
         // If first row
-        // King me
+            // King me
     }
 
+    /**
+     *
+     * @param move
+     */
+    // @action.bound
     // evaluateMove(move) {
-    //     // TODO: evaluate move 
+    //     // TODO: evaluate move
     //     // check if jump is available
     //     // Set jump flag
     //     this.setState({ jumpAvailable: true })
