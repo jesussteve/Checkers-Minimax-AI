@@ -38,7 +38,7 @@ export const Game: FunctionComponent<GameProps> = observer(({ gameState, childre
                                     id={col.isValid ? col.id : undefined}
                                 >
                                     {
-                                        // If player show checker otherwise ''
+                                        // If player show checker otherwise do not show checker
                                         col.player ?
                                             // Load checker passing 
                                             <Checker
