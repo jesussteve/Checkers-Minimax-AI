@@ -37,7 +37,7 @@ To get a local copy up and running follow these simple steps.
 3. Clone the game:
 
     ```~sh
-    git clone https://github.com/fullstacksteve/checkers-minimax-ai.git checkers-minimax-ai
+    git clone https://github.com/jesussteve/checkers-minimax-ai.git checkers-minimax-ai
     ```
 
 3. Install dependencies:
