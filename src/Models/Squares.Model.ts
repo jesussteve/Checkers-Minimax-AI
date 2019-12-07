@@ -28,7 +28,7 @@ export class Row {
  */
 export class Column {
     isValid: boolean
-    id: number
+    id?: number
     player?: string
     isKing?: boolean = false
 
@@ -39,10 +39,14 @@ export class Column {
      * @param {string|undefined} player - Player ('black'|'white') for checker in column 
      * @param {boolean} isKing - Flag for checker king status
      */
-    constructor(isValid: boolean, id: number, player?: string, isKing?: boolean) {
+    constructor(isValid: boolean, id?: number, player?: string, isKing?: boolean) {
         this.isValid = isValid
-        this.id = id
-        this.player = player
-        this.isKing = isKing
+        // If valid square set properties
+        if (this.isValid){
+            this.id = id
+            this.player = player
+            this.isKing = isKing
+        }
+        
     }
 }

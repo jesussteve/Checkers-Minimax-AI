@@ -12,7 +12,7 @@ type CheckerProps = {
     currentSquare: number
     player: string
     isKing?: boolean
-    squareId: number
+    squareId?: number
 }
 /**
  * @constructor React Function Component Declaration
@@ -28,7 +28,7 @@ export const Checker: FunctionComponent<CheckerProps> = ({
     currentSquare,
     player,
     isKing = false,
-    squareId
+    squareId = -1
 }) =>
     // Render Component
     <div onClick={() => onClick(squareId, player, isKing)}
